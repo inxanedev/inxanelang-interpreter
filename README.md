@@ -42,3 +42,6 @@ Here is the list of all instructions:
 - LEN - pushes the length of the stack onto the stack
 - DUP - duplicates the top value on the stack
 - NEWLINE - prints a new line (other prints do not print a new line at the end)
+
+# Dependencies
+The program currently depends only on one crate, ctrlc, for handling the Ctrl-C interrupt.
