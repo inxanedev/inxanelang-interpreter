@@ -6,32 +6,32 @@ fn main() {
     }).expect("Error setting Ctrl-C handler");
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-    	println!("Specify file name as argument!");
+        println!("Specify file name as argument!");
     } else {
-    	let code: String = match fs::read_to_string(args[1].clone()) {
+        let code: String = match fs::read_to_string(args[1].clone()) {
             Ok(s) => s,
             Err(_) => {
                 error(0, "Error reading the file!", false);
                 return;
             }
         };
-    	let split: Vec<&str> = code.split('\n').map(|x| x.trim()).collect();
-    	let mut stack: Vec<i32> = Vec::new();
-    	let mut code_line = 0;
-    	loop {
-    		let split_line: Vec<&str> = split[code_line].split(' ').collect();
-    		match split_line[0] {
-    			"STOP" => {
-    				break;
-    			},
-    			"PRINT" => {
+        let split: Vec<&str> = code.split('\n').map(|x| x.trim()).collect();
+        let mut stack: Vec<i32> = Vec::new();
+        let mut code_line = 0;
+        loop {
+            let split_line: Vec<&str> = split[code_line].split(' ').collect();
+            match split_line[0] {
+                "STOP" => {
+                    break;
+                },
+                "PRINT" => {
                     if split_line.len() == 1 {
                         error(code_line, "No arguments to PRINT specified!", true);
                         break;
                     }
-    				print!("{}", build_string(&split_line, 1, split_line.len()));
-    			},
-    			"GOTO" => {
+                    print!("{}", build_string(&split_line, 1, split_line.len()));
+                },
+                "GOTO" => {
                     if split_line.len() == 1 {
                         error(code_line, "No line specified for GOTO statement!", true);
                         break;
@@ -43,35 +43,35 @@ fn main() {
                             break;
                         }
                     };
-    				if line <= split.len() && line > 0 {
+                    if line <= split.len() && line > 0 {
                         code_line = line - 1;
-    				} else {
+                    } else {
                         error(code_line, "Line number out of bounds!", true);
                         break;
                     }
                     continue;
-    			},
-    			"PUSH" => {
-    				stack.push(match split_line[1].parse::<i32>() {
+                },
+                "PUSH" => {
+                    stack.push(match split_line[1].parse::<i32>() {
                         Ok(v) => v,
                         Err(_) => {
                             error(code_line, "Invalid number passed to PUSH statement!", true);
                             break;
                         }
                     });
-    			},
-    			"POP" => {
-    				stack.pop();
-    			},
-    			"ADD" => {
-    				*stack.last_mut().unwrap() += match split_line[1].parse::<i32>() {
+                },
+                "POP" => {
+                    stack.pop();
+                },
+                "ADD" => {
+                    *stack.last_mut().unwrap() += match split_line[1].parse::<i32>() {
                         Ok(v) => v,
                         Err(_) => {
                             error(code_line, "Invalid number passed to ADD statement!", true);
                             break;
                         }
                     }
-    			},
+                },
                 "SUB" => {
                     *stack.last_mut().unwrap() -= match split_line[1].parse::<i32>() {
                         Ok(v) => v,
@@ -90,9 +90,9 @@ fn main() {
                         }
                     }
                 },
-    			"POPPRINT" => {
-    				print!("{}", stack.pop().unwrap());
-    			},
+                "POPPRINT" => {
+                    print!("{}", stack.pop().unwrap());
+                },
                 "APOPPRINT" => {
                     print!("{}", std::char::from_u32(stack.pop().unwrap() as u32).unwrap());
                 },
@@ -148,25 +148,25 @@ fn main() {
                 "NEWLINE" => {
                     print!("\n");
                 },
-    			_ => {}
-    		};
-    		code_line += 1;
-    		if code_line == split.len() {
-    			break;
-    		}
-    	}
+                _ => {}
+            };
+            code_line += 1;
+            if code_line == split.len() {
+                break;
+            }
+        }
     }
 }
 
 fn build_string(vector: &Vec<&str>, start_index: usize, end_index: usize) -> String {
-	let mut output = String::new();
-	for i in start_index..end_index {
-		output.push_str(vector[i]);
-		if i != end_index - 1 {
-			output.push_str(" ");
-		}
-	}
-	return output;
+    let mut output = String::new();
+    for i in start_index..end_index {
+        output.push_str(vector[i]);
+        if i != end_index - 1 {
+            output.push_str(" ");
+        }
+    }
+    return output;
 }
 
 fn error(line: usize, message: &str, take_line: bool) {
