@@ -132,7 +132,10 @@ fn main() {
                     let mut input = String::new();
                     std::io::stdin().read_line(&mut input).expect("Failed to read line!");
                     input = input.trim().to_string();
-                    stack.push(input.parse::<i32>().unwrap());
+                    stack.push(match input.parse::<i32>() {
+                        Ok(v) => v,
+                        Err(_) => -1
+                    });
                 },
                 "LEN" => {
                     stack.push(stack.len() as i32);

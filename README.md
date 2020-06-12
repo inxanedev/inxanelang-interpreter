@@ -38,7 +38,7 @@ Here is the list of all instructions:
 - PRINTSTACK - prints the stack in the format of [x, y, z]
 - REV - reverses the order of the stack
 - INPUTSTR - takes input from the user, and pushed all the ascii values of each character onto the stack
-- INPUTNUM - takes input from the user, parses it as a number and pushes the result onto the stack
+- INPUTNUM - takes input from the user, parses it as a number and pushes the result onto the stack, if it fails to parse it as a number, it will push -1 instead
 - LEN - pushes the length of the stack onto the stack
 - DUP - duplicates the top value on the stack
 - NEWLINE - prints a new line (other prints do not print a new line at the end)
