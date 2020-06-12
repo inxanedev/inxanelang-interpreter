@@ -1,0 +1,19 @@
+// Push the starting number
+PUSH 1
+// Duplicate before popprint, because it pops the value
+DUP
+// Print the top item in the stack
+POPPRINT
+// Print new line after the number, popprint doesn't print new line at the end
+NEWLINE
+// Add 1 to the top item in the stack (i++)
+ADD 1
+// Duplicate before IF statement because it pops as well
+DUP
+// If the popped value is 6, stop the program, else go to line 4
+IF 6
+STOP
+GOTO 4
+
+// Disclaimer: Comments count as lines too, make sure you have the right line in your GOTOs
+// Disclaimer 2: You can't really have comments right after IF because of the way it works

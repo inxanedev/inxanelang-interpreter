@@ -1,0 +1,4 @@
+// This program will take a number from the user, push it onto the stack, add 5 to it, and print the number.
+INPUTNUM
+ADD 5
+POPPRINT
